@@ -108,7 +108,7 @@ export default class ServiceInstance extends PureComponent {
                 >
                   <Area
                     data={axisY(duration, this.bytesToMB(noheap.values), ({ x, y }) => ({ x, y, type: 'value' }))
-                    .concat(axisY(duration, this.bytesToMB(maxNoheap.values), ({ x, y }) => ({ x, y, type: 'free' })))}
+                      .concat(axisY(duration, this.bytesToMB(maxNoheap.values), ({ x, y }) => ({ x, y, type: 'free' })))}
                   />
                 </ChartCard>
               </Col>
@@ -139,7 +139,7 @@ export default class ServiceInstance extends PureComponent {
                 >
                   <StackBar
                     data={axisY(duration, youngGCTime.values, ({ x, y }) => ({ x, y, type: 'youngGCTime' }))
-                    .concat(axisY(duration, oldGCTime.values, ({ x, y }) => ({ x, y, type: 'oldGCTime' })))}
+                      .concat(axisY(duration, oldGCTime.values, ({ x, y }) => ({ x, y, type: 'oldGCTime' })))}
                   />
                 </ChartCard>
               </Col>

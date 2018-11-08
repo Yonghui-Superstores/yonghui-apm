@@ -184,7 +184,7 @@ export default class Service extends PureComponent {
               >
                 <Line
                   data={axisMY(this.props.duration, [{ title: 'p99', value: data.getP99}, { title: 'p95', value: data.getP95}
-                  , { title: 'p90', value: data.getP90}, { title: 'p75', value: data.getP75}, { title: 'p50', value: data.getP50}])}
+                    , { title: 'p90', value: data.getP90}, { title: 'p75', value: data.getP75}, { title: 'p50', value: data.getP50}])}
                 />
               </Card>
             </Col>
@@ -250,7 +250,7 @@ export default class Service extends PureComponent {
               <ServiceInstance data={data} duration={duration} />
             </Panel>
           </Col>
-         ) : null}
+        ) : null}
         <Col span={showServiceInstance ? 0 : 24}>
           {this.renderApp()}
         </Col>

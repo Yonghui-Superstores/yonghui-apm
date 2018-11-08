@@ -77,7 +77,7 @@ export default class AppTopology extends Base {
         onSelectedApplication();
       });
     }
-    
+
   }
 
   updateMetrics = (cy, data) => {
@@ -89,7 +89,7 @@ export default class AppTopology extends Base {
     const { sla: { values: slaValues } } = data;
     const layer = cy.cyCanvas();
     const canvas = layer.getCanvas();
-    
+
     cy.on('render cyCanvas.resize', (evt) => {
       const ctx = canvas.getContext('2d');
       layer.resetTransform(ctx);
@@ -110,12 +110,12 @@ export default class AppTopology extends Base {
         }
 
         const arc = d3.arc()
-            .outerRadius(33)
-            .innerRadius(27)
-            .context(ctx);
+          .outerRadius(33)
+          .innerRadius(27)
+          .context(ctx);
 
         const pie = d3.pie()
-            .sort(null);
+          .sort(null);
 
         ctx.translate(pos.x, pos.y);
 
@@ -151,26 +151,26 @@ export default class AppTopology extends Base {
     })
     const cpmFunc = this.mapFunc(cpm.values);
     cy.style().selector('edge')
-    .css({
-      width: ele => cpmFunc(ele.data('dataId'), 3, 12),
-      'line-color': ele => this.lineColor(latency.values, ele.data('dataId'), colorRange),
-      'target-arrow-color': ele => this.lineColor(latency.values, ele.data('dataId'), colorRange),
-      'curve-style': 'bezier',
-      'control-point-step-size': 100,
-      'target-arrow-shape': 'triangle',
-      'arrow-scale': 1.2,
-      'opacity': 0.666,
-      'text-wrap': 'wrap',
-      'text-rotation': 'autorotate',
-    })
-    .update();
+      .css({
+        width: ele => cpmFunc(ele.data('dataId'), 3, 12),
+        'line-color': ele => this.lineColor(latency.values, ele.data('dataId'), colorRange),
+        'target-arrow-color': ele => this.lineColor(latency.values, ele.data('dataId'), colorRange),
+        'curve-style': 'bezier',
+        'control-point-step-size': 100,
+        'target-arrow-shape': 'triangle',
+        'arrow-scale': 1.2,
+        'opacity': 0.666,
+        'text-wrap': 'wrap',
+        'text-rotation': 'autorotate',
+      })
+      .update();
   }
 
   mapFunc = (values) => {
     if (values.length < 1) {
       return (id, rLimit) => {
         return rLimit;
-      }; 
+      };
     }
     const valueData = values.map(_ => _.value);
     const max = Math.max(...valueData);

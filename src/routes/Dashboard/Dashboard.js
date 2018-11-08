@@ -26,6 +26,7 @@ import { generateDuration, axisMY } from '../../utils/time';
 import { redirect } from '../../utils/utils';
 import { Panel } from '../../components/Page';
 import RankList from '../../components/RankList';
+import ControlPanel from '../../components/ControlPanel';
 
 @connect(state => ({
   dashboard: state.dashboard,
@@ -39,27 +40,32 @@ export default class Dashboard extends PureComponent {
       type: 'dashboard/fetchData',
       payload: { variables },
     });
-  }
+  };
 
   renderAction = (prompt, path) => {
     const { history } = this.props;
     return (
       <Tooltip title={prompt}>
-        <Icon type="info-circle-o" onClick={() => redirect(history, path)} />
+        <Icon type="info-circle-o" onClick={() => redirect(history, path)}/>
       </Tooltip>
     );
-  }
+  };
 
   render() {
     const { dashboard: { data }, globalVariables, duration, history } = this.props;
     return (
       <Panel globalVariables={globalVariables} onChange={this.handleDurationChange}>
         <Row gutter={8}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ marginBottom: 8 }} >
+            <ControlPanel />
+          </Col>
+        </Row>
+        <Row gutter={8}>
           <Col xs={24} sm={24} md={12} lg={6} xl={6}>
             <ChartCard
               title="Service"
               action={this.renderAction('Show service details', '/monitor/service')}
-              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/app.png" alt="service" />}
+              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/app.png" alt="service"/>}
               total={data.getGlobalBrief.numOfService}
             />
           </Col>
@@ -67,22 +73,24 @@ export default class Dashboard extends PureComponent {
             <ChartCard
               title="Endpoint"
               action={this.renderAction('Show endpoint details', '/monitor/endpoint')}
-              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/service.png" alt="endpoint" />}
+              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/service.png"
+                           alt="endpoint"/>}
               total={data.getGlobalBrief.numOfEndpoint}
             />
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6}>
             <ChartCard
               title="DB & Cache"
-              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/database.png" alt="database" />}
+              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/database.png"
+                           alt="database"/>}
               total={data.getGlobalBrief.numOfDatabase
-                + data.getGlobalBrief.numOfCache}
+              + data.getGlobalBrief.numOfCache}
             />
           </Col>
           <Col xs={24} sm={24} md={12} lg={6} xl={6}>
             <ChartCard
               title="MQ"
-              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/mq.png" alt="mq" />}
+              avatar={<img style={{ width: 56, height: 56 }} src="img/icon/mq.png" alt="mq"/>}
               total={data.getGlobalBrief.numOfMQ}
             />
           </Col>
@@ -97,17 +105,20 @@ export default class Dashboard extends PureComponent {
                 data={data.getThermodynamic}
                 duration={duration}
                 height={200}
-                onClick={(d, responseTimeRange) => redirect(history, '/trace', { values: { duration: generateDuration({
-                  from() {
-                    return d.start;
-                  },
-                  to() {
-                    return d.end;
-                  },
-                }),
-                minTraceDuration: responseTimeRange.min,
-                maxTraceDuration: responseTimeRange.max,
-              } })}
+                onClick={(d, responseTimeRange) => redirect(history, '/trace', {
+                  values: {
+                    duration: generateDuration({
+                      from() {
+                        return d.start;
+                      },
+                      to() {
+                        return d.end;
+                      },
+                    }),
+                    minTraceDuration: responseTimeRange.min,
+                    maxTraceDuration: responseTimeRange.max,
+                  }
+                })}
               />
             </ChartCard>
           </Col>
@@ -117,11 +128,17 @@ export default class Dashboard extends PureComponent {
             <Card
               title="Response Time"
               bordered={false}
-              bodyStyle={{ padding: 5, height: 150}}
+              bodyStyle={{ padding: 5, height: 150 }}
             >
               <Line
-                data={axisMY(duration, [{ title: 'p99', value: data.getP99}, { title: 'p95', value: data.getP95}
-                , { title: 'p90', value: data.getP90}, { title: 'p75', value: data.getP75}, { title: 'p50', value: data.getP50}])}
+                data={axisMY(duration, [{ title: 'p99', value: data.getP99 }, {
+                  title: 'p95',
+                  value: data.getP95
+                }
+                  , { title: 'p90', value: data.getP90 }, {
+                    title: 'p75',
+                    value: data.getP75
+                  }, { title: 'p50', value: data.getP50 }])}
               />
             </Card>
           </Col>

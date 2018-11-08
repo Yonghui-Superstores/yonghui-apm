@@ -93,13 +93,13 @@ class Line extends Component {
     };
 
     const ds = new DataSet();
-      const dv = ds.createView().source(data);
-      dv.transform({
-        type: 'map',
-        callback(row) {
-          return row.d ? row : { ...row, d: 'default'};
-        },
-      });
+    const dv = ds.createView().source(data);
+    dv.transform({
+      type: 'map',
+      callback(row) {
+        return row.d ? row : { ...row, d: 'default'};
+      },
+    });
 
     return (
       <div className={styles.chart} style={{ height }} ref={this.handleRoot}>

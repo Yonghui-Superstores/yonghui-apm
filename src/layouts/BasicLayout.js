@@ -203,32 +203,7 @@ class BasicLayout extends React.PureComponent {
     const bashRedirect = this.getBashRedirect();
     const layout = (
       <Layout>
-        <SiderMenu
-          logo={logo}
-          // If you do not have the Authorized parameter
-          // you will be forced to jump to the 403 interface without permission
-          Authorized={Authorized}
-          menuData={getMenuData()}
-          collapsed={collapsed}
-          location={location}
-          onCollapse={this.handleMenuCollapse}
-        />
         <Layout>
-          <GlobalHeader
-            logo={logo}
-            fetching={fetching}
-            notices={notices}
-            collapsed={collapsed}
-            selectedDuration={dSelected}
-            isMonitor={isMonitor}
-            onNoticeClear={this.handleNoticeClear}
-            onCollapse={this.handleMenuCollapse}
-            onMenuClick={this.handleMenuClick}
-            onNoticeVisibleChange={this.handleNoticeVisibleChange}
-            onDurationToggle={this.handleDurationToggle}
-            onDurationReload={this.handleDurationReload}
-            onRedirect={this.handleRedirect}
-          />
           {isMonitor ? (
             <DurationPanel
               selected={dSelected}

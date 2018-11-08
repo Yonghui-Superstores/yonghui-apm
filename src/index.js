@@ -25,6 +25,8 @@ import createLoading from 'dva-loading';
 import 'moment/locale/zh-cn';
 
 import './index.less';
+import './assets/common.less';
+
 // 1. Initialize
 const app = dva({
   history: createHistory(),

@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-
+import classNames from 'classnames';
 import React, { PureComponent } from 'react';
 import { List, Row, Col, Tag } from 'antd';
 import styles from './index.less';
-
 
 class RankList extends PureComponent {
   renderLabel = (item) => {
@@ -41,26 +40,34 @@ class RankList extends PureComponent {
   renderTitle = (item, maxValue) => {
     const { onClick, color = '#87CEFA' } = this.props;
     return (
-      <div className={styles.progressWrap}>
-        {maxValue > 0 ? (
-          <div
-            className={styles.progress}
-            style={{
+      <div>
+        <span>{onClick ?
+          <a onClick={() => onClick(item.key, item)}>{this.renderLabel(item)}</a>
+            : this.renderLabel(item)}
+        </span>
+        <span className={styles.value}>{this.renderValue(item)}
+        </span>
+        <div className={styles.progressWrap}>
+          {maxValue > 0 ? (
+            <div
+              className={styles.progress}
+              style={{
               backgroundColor: color,
               width: `${(item.value * 100) / maxValue}%`,
-              height: 25,
             }}
-          />
+            />
         ) : null}
-        <div className={styles.mainInfo}>
-          <span>{onClick ?
+          <div className={styles.mainInfo}>
+            {/* <span>{onClick ?
             <a onClick={() => onClick(item.key, item)}>{this.renderLabel(item)}</a>
               : this.renderLabel(item)}
-          </span>
-          <span className={styles.value}>{this.renderValue(item)}
-          </span>
+          </span> */}
+            {/* <span className={styles.value}>{this.renderValue(item)}
+            </span> */}
+          </div>
         </div>
-      </div>);
+      </div>
+    );
   }
 
   renderBadges = (item) => {
@@ -85,7 +92,7 @@ class RankList extends PureComponent {
   }
 
   render() {
-    const { data, loading, renderBadge } = this.props;
+    const { data, loading, renderBadge, listTitles } = this.props;
     let maxValue = 0;
     const sortData = [...data];
     sortData.sort((a, b) => {
@@ -97,21 +104,28 @@ class RankList extends PureComponent {
       return b.value - a.value;
     });
     return (
-      <List
-        className={styles.rankList}
-        itemLayout="horizontal"
-        size="small"
-        dataSource={sortData}
-        loading={loading}
-        renderItem={item => (
-          <List.Item>
-            <List.Item.Meta
-              title={this.renderTitle(item, maxValue)}
-              description={renderBadge ? this.renderBadges(item) : null}
-            />
-          </List.Item>
-        )}
-      />
+      <div>
+        {
+          listTitles && (
+          <div className={classNames('clearfix', styles.rankList, 'mt-md')} > <span className="pull-left"> {listTitles[0]} </span> <span className="pull-right">{listTitles[1]}</span> </div>
+          )
+        }
+        <List
+          className={styles.rankList}
+          itemLayout="horizontal"
+          size="small"
+          dataSource={sortData}
+          loading={loading}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta
+                title={this.renderTitle(item, maxValue)}
+                description={renderBadge ? this.renderBadges(item) : null}
+              />
+            </List.Item>
+          )}
+        />
+      </div>
     );
   }
 }

@@ -102,11 +102,11 @@ export default class Topology extends PureComponent {
     dispatch({
       type: 'topology/fetchMetrics',
       payload: { variables: {
-        duration,
-        ids,
-        idsS,
-        idsC,
-      }},
+          duration,
+          ids,
+          idsS,
+          idsC,
+        }},
     });
   }
 
@@ -116,10 +116,10 @@ export default class Topology extends PureComponent {
       dispatch({
         type: 'topology/saveData',
         payload: { appInfo: { ...appInfo,
-          sla: this.findValue(appInfo.id, sla.values),
-          cpm: this.findValue(appInfo.id, nodeCpm.values),
-          avgResponseTime: this.findValue(appInfo.id, nodeLatency.values),
-        } },
+            sla: this.findValue(appInfo.id, sla.values),
+            cpm: this.findValue(appInfo.id, nodeCpm.values),
+            avgResponseTime: this.findValue(appInfo.id, nodeLatency.values),
+          } },
       });
     } else {
       dispatch({
@@ -161,12 +161,12 @@ export default class Topology extends PureComponent {
       <Icon
         type="exception"
         onClick={() => redirect(this.props.history, '/trace',
-        { values: {
-            serviceId: appInfo.id,
-            duration: { ...this.props.duration, input: this.props.globalVariables.duration },
-          },
-          labels: { applicationId: appInfo.name },
-        })}
+          { values: {
+              serviceId: appInfo.id,
+              duration: { ...this.props.duration, input: this.props.globalVariables.duration },
+            },
+            labels: { applicationId: appInfo.name },
+          })}
       />,
       appInfo.isAlarm ? <Icon type="bell" onClick={() => redirect(this.props.history, '/monitor/alarm')} /> : null,
     ];
@@ -229,38 +229,38 @@ export default class Topology extends PureComponent {
           </Col>
           <Col {...{ ...colResponsiveProps, xl: 6, lg: 8 }}>
             {data.appInfo ? (
-              <Card
-                title={data.appInfo.name}
-                bodyStyle={{ height: 568 }}
-                actions={this.renderActions()}
-              >
-                <ApplicationLitePanel appInfo={data.appInfo} />
-              </Card>
-            )
-            : (
-              <Card title="Overview" style={{ height: 672 }}>
-                <Select
-                  mode="tags"
-                  style={{ width: '100%', marginBottom: 20 }}
-                  placeholder="Filter application"
-                  onChange={this.handleFilterApplication}
-                  tokenSeparators={[',']}
-                  value={appFilters}
+                <Card
+                  title={data.appInfo.name}
+                  bodyStyle={{ height: 568 }}
+                  actions={this.renderActions()}
                 >
-                  {data.getGlobalTopology.nodes.filter(_ => _.sla)
-                    .map(_ => <Option key={_.name}>{_.name}</Option>)}
-                </Select>
-                <Popover content={content} title="Info">
-                  <h4>Latency coloring thresholds  <Icon type="info-circle-o" /></h4>
-                </Popover>
-                <Input style={{ width: '100%', marginBottom: 20 }} onChange={this.handleChangeLatencyStyle} value={latencyRange.join(',')} />
-                <h4>Overview</h4>
-                <DescriptionList layout="vertical">
-                  <Description term="Total">{topologData.nodes.length}</Description>
-                  {this.renderNodeType(topologData)}
-                </DescriptionList>
-              </Card>
-            )}
+                  <ApplicationLitePanel appInfo={data.appInfo} />
+                </Card>
+              )
+              : (
+                <Card title="Overview" style={{ height: 672 }}>
+                  <Select
+                    mode="tags"
+                    style={{ width: '100%', marginBottom: 20 }}
+                    placeholder="Filter application"
+                    onChange={this.handleFilterApplication}
+                    tokenSeparators={[',']}
+                    value={appFilters}
+                  >
+                    {data.getGlobalTopology.nodes.filter(_ => _.sla)
+                      .map(_ => <Option key={_.name}>{_.name}</Option>)}
+                  </Select>
+                  <Popover content={content} title="Info">
+                    <h4>Latency coloring thresholds  <Icon type="info-circle-o" /></h4>
+                  </Popover>
+                  <Input style={{ width: '100%', marginBottom: 20 }} onChange={this.handleChangeLatencyStyle} value={latencyRange.join(',')} />
+                  <h4>Overview</h4>
+                  <DescriptionList layout="vertical">
+                    <Description term="Total">{topologData.nodes.length}</Description>
+                    {this.renderNodeType(topologData)}
+                  </DescriptionList>
+                </Card>
+              )}
           </Col>
         </Row>
       </Panel>

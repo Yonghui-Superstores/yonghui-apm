@@ -22,16 +22,16 @@ import classNames from 'classnames';
 import styles from './index.less';
 
 const ChartCard = ({
-  loading = false,
-  contentHeight,
-  title,
-  avatar,
-  action,
-  total,
-  footer,
-  children,
-  ...rest
-}) => {
+                     loading = false,
+                     contentHeight,
+                     title,
+                     avatar,
+                     action,
+                     total,
+                     footer,
+                     children,
+                     ...rest
+                   }) => {
   const content = (
     <div className={styles.chartCard}>
       <div
@@ -44,9 +44,9 @@ const ChartCard = ({
             <span className={styles.action}>{action}</span>
           </div>
           {// eslint-disable-next-line
-          total !== undefined && (
-            <div className={styles.total} dangerouslySetInnerHTML={{ __html: total }} />
-          )}
+            total !== undefined && (
+              <div className={styles.total} dangerouslySetInnerHTML={{ __html: total }} />
+            )}
         </div>
       </div>
       {children && (
